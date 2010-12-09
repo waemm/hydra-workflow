@@ -1,0 +1,2 @@
+class Hydra::WorkflowTransition
+end
