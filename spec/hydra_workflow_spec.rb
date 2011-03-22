@@ -33,7 +33,8 @@ describe "HydraWorkflow" do
         end
         
         triggers do
-          ... blah ...
+          # set released_values = "released"
+          # ... blah ...
         end
         
       end
@@ -50,6 +51,9 @@ describe "HydraWorkflow" do
     release_transition.should be_kind_of(Hydra::WorkflowTransition)
     
     reqs = release_transition.requirements
+    [:provide_title, :provide_author, :attach_file].each do |requirement_name|
+      reqs[requirement_name].satisfied?(obj).should == false
+    end
     reqs[:provide_title].status(obj).should == "Please provide a title."
     reqs[:provide_author].status(obj).should == "Please provide an author (first name and last name)."
     reqs[:attach_file].status(obj).should == "Please attach at least one file."
